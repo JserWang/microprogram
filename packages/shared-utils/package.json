@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "author": "JserWang",
   "description": "shared utilities for microprogram packages",
-  "bin": {
-    "create": "index.js"
-  },
   "files": [
-    "index.js"
+    "index.js",
+    "src/*"
   ],
   "main": "index.js",
   "license": "MIT",
@@ -23,12 +21,7 @@
     "url": "https://github.com/JserWang/microprogram/issues"
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/shared-utils#readme",
-  "devDependencies": {
-    "miniprogram-api-typings": "^3.3.0"
-  },
   "dependencies": {
-    "enquirer": "^2.3.6",
-    "fast-glob": "^3.2.5",
-    "minimist": "^1.2.5"
+    "fast-glob": "^3.2.5"
   }
 }

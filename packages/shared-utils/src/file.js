@@ -5,6 +5,8 @@ exports.copyDir = copyDir
 
 exports.emptyDir = emptyDir
 
+exports.lookupFile = lookupFile
+
 exports.copy = function (src, dest) {
   const stat = fs.statSync(src)
   if (stat.isDirectory()) {
@@ -36,5 +38,25 @@ function emptyDir(dir) {
     } else {
       fs.unlinkSync(abs)
     }
+  }
+}
+
+/**
+ *
+ * @param { string } dir
+ * @param { string[] } formats
+ * @param { boolean } pathOnly
+ * @returns
+ */
+function lookupFile(dir, formats, pathOnly = false) {
+  for (const format of formats) {
+    const fullPath = path.join(dir, format)
+    if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) {
+      return pathOnly ? fullPath : fs.readFileSync(fullPath, 'utf-8')
+    }
+  }
+  const parentDir = path.dirname(dir)
+  if (parentDir !== dir) {
+    return lookupFile(parentDir, formats, pathOnly)
   }
 }
