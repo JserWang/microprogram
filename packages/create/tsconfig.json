@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": ["miniprogram-api-typings"]
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
+}

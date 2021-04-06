@@ -1,0 +1,35 @@
+{
+  "name": "@microprogram/create",
+  "version": "1.0.0",
+  "author": "JserWang",
+  "bin": {
+    "create": "index.js"
+  },
+  "files": [
+    "index.js",
+    "wechat/template-*"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JserWang/microprogram.git",
+    "directory": "packages/create"
+  },
+  "bugs": {
+    "url": "https://github.com/JserWang/microprogram/issues"
+  },
+  "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/create#readme",
+  "devDependencies": {
+    "@microprogram/shared-utils": "^1.0.0",
+    "miniprogram-api-typings": "^3.3.0"
+  },
+  "dependencies": {
+    "enquirer": "^2.3.6",
+    "kolorist": "^1.4.0",
+    "minimist": "^1.2.5"
+  }
+}
