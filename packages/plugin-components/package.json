@@ -1,0 +1,30 @@
+{
+  "name": "@microprogram/plugin-components",
+  "version": "1.0.0",
+  "author": "JserWang",
+  "description": "Automatically parse components in `.*xml` and fill in json",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JserWang/microprogram.git",
+    "directory": "packages/plugin-components"
+  },
+  "bugs": {
+    "url": "https://github.com/JserWang/microprogram/issues"
+  },
+  "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-components#readme",
+  "dependencies": {
+    "fast-xml-parser": "^3.19.0",
+    "plugin-error": "^1.0.1",
+    "through2": "^4.0.2"
+  }
+}
