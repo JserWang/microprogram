@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+dist
+TODOs.md
+*.log
+temp
+explorations
+.idea
+*.local
+*.cpuprofile
+.vscode/
