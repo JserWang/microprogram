@@ -10,6 +10,7 @@ const PluginError = require('plugin-error')
 const cwd = process.cwd()
 
 function loadEnv(mode) {
+  const prefix = 'process.env.'
   const env = {}
 
   const envFiles = [
@@ -23,7 +24,7 @@ function loadEnv(mode) {
   // these are typically provided inline and should be prioritized
   for (const key in process.env) {
     if (env[key] === undefined) {
-      env[key] = process.env[key]
+      env[`${prefix}${key}`] = process.env[key]
     }
   }
 
@@ -32,13 +33,14 @@ function loadEnv(mode) {
     if (path) {
       const parsed = dotenv.parse(fs.readFileSync(path))
 
+      // let environment variables use each other
       dotenvExpand({
         parsed
       })
 
       for (const [key, value] of Object.entries(parsed)) {
         if (env[key] === undefined) {
-          env[key] = value
+          env[`${prefix}${key}`] = value
         }
       }
     }
