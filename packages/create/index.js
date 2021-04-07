@@ -16,8 +16,9 @@ const TEMPLATES = [green('wechat-js'), green('wechat-ts')]
 
 const TYPES = [yellow('page'), lightRed('component')]
 
-async function init() {
-  let template = argv.t || argv.template
+module.exports = init
+
+async function init(template) {
   let isValidTemplate = false
   let message = 'Select a template:'
 
@@ -103,6 +104,9 @@ async function init() {
       copy(path.join(templateDir, file), path.join(targetPath, file))
     }
   }
+
+  console.log(`\nDone.`)
+  console.log()
 }
 
 function getTemplateDir(template) {
@@ -113,7 +117,3 @@ function getTemplateDir(template) {
     `template-${platformTemplate[1]}`
   )
 }
-
-init().catch((e) => {
-  console.error(e)
-})
