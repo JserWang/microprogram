@@ -39,7 +39,7 @@ function plugin(options) {
       `${parsedPath.basename}.json`
     )
 
-    const json = require(jsonFilePath)
+    const json = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8').trim())
     // empty json target key
     json[`${options.targetKey}`] = {}
 
