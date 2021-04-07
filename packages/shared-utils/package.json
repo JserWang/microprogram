@@ -23,7 +23,9 @@
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/shared-utils#readme",
   "dependencies": {
     "chalk": "^4.1.0",
+    "events": "^3.3.0",
     "fast-glob": "^3.2.5",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "strip-ansi": "^6.0.0"
   }
 }
