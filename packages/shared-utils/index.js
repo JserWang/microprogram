@@ -1,3 +1,3 @@
-;['platform', 'file'].forEach((m) => {
-  Object.assign(exports, require(`./src/${m}`))
+;['command', 'file', 'node', 'platform'].forEach((m) => {
+  Object.assign(exports, require(`./lib/${m}`))
 })
