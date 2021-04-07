@@ -3,8 +3,9 @@ const { program } = require('commander')
 const { checkNodeVersion } = require('@microprogram/shared-utils')
 
 const requiredVersion = require('../package.json').engines.node
-
 checkNodeVersion(requiredVersion, '@microprogram/cli')
+
+const cwd = process.cwd()
 
 program
   .version(`@microprogram/cli ${require('../package.json').version}`)
@@ -28,6 +29,19 @@ program
     require('@microprogram/create')(template).catch((e) => {
       console.error(e)
     })
+  })
+
+program
+  .command('open [project]')
+  .option('-p, --platform <platform>', 'The platform of cli, such as wechat')
+  .description('Open devtools by platform')
+  .action((project) => {
+    const argv = require('minimist')(process.argv.slice(2))
+    require(`@microprogram/plugin-devtool/${argv.p || argv.platform}`).execute(
+      'open',
+      '--project',
+      project || cwd
+    )
   })
 
 program

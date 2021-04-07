@@ -20,6 +20,7 @@
   "dependencies": {
     "@microprogram/create": "^1.0.0",
     "@microprogram/shared-utils": "^1.0.0",
+    "@microprogram/plugin-devtool": "^1.0.0",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "execa": "^5.0.0",

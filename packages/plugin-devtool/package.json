@@ -1,0 +1,10 @@
+{
+  "name": "@microprogram/plugin-devtool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@microprogram/shared-utils": "^1.0.0",
+    "iconv-lite": "^0.6.2"
+  }
+}
