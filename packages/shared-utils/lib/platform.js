@@ -1,10 +1,8 @@
-const PLATFORM = {
+exports.PLATFORM = {
   UNKNOWN: 'unknown',
   WECHAT: 'wechat',
   ALIPAY: 'alipay'
 }
-
-exports.PLATFORM = PLATFORM
 
 /**
  * Get platform by file extension name
@@ -20,13 +18,13 @@ exports.getPlatform = function () {
     const extname = path.extname(entry)
     switch (extname) {
       case '.wxml':
-        return PLATFORM.WECHAT
+        return exports.PLATFORM.WECHAT
       case '.axml':
-        return PLATFORM.ALIPAY
+        return exports.PLATFORM.ALIPAY
       default:
-        return PLATFORM.UNKNOWN
+        return exports.PLATFORM.UNKNOWN
     }
   }
 
-  return PLATFORM.UNKNOWN
+  return exports.PLATFORM.UNKNOWN
 }
