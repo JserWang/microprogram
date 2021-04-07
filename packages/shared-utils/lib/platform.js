@@ -4,6 +4,13 @@ exports.PLATFORM = {
   ALIPAY: 'alipay'
 }
 
+exports.PLATFORM_EXT = {
+  wechat: {
+    cssExt: 'wxss',
+    viewExt: 'wxml'
+  }
+}
+
 /**
  * Get platform by file extension name
  * @returns platform
