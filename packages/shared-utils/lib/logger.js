@@ -58,7 +58,6 @@ exports.warn = (msg, tag = null) => {
 }
 
 exports.error = (msg, tag = null) => {
-  stopSpinner()
   console.error(
     format(chalk.bgRed(' ERROR ') + (tag ? chalkTag(tag) : ''), chalk.red(msg))
   )
