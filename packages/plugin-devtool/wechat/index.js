@@ -28,7 +28,7 @@ function getCliPath() {
           'REG QUERY "HKLM\\SOFTWARE\\Wow6432Node\\Tencent\\微信web开发者工具"',
           { encoding: 'buffer' }
         )
-        const stdout = iconv.decode(result.toString(), encoding)
+        const stdout = iconv.decode(result, encoding)
         if (stdout) {
           const stdoutArr = stdout.split('\r\n')
           let exePath = stdoutArr.find((p) => p.indexOf('.exe') != -1) || ''
