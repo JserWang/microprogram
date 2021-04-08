@@ -1,0 +1,38 @@
+{
+  "name": "@microprogram/cli-service",
+  "version": "1.0.0",
+  "main": "lib/microprogram-cli-service.js",
+  "bin": {
+    "microprogram-cli-service": "bin/microprogram-cli-service.js"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JserWang/microprogram.git",
+    "directory": "packages/cli-service"
+  },
+  "bugs": {
+    "url": "https://github.com/JserWang/microprogram/issues"
+  },
+  "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/cli-service#readme",
+  "dependencies": {
+    "@microprogram/plugin-components": "^1.0.0",
+    "@microprogram/plugin-dotenv": "^1.0.0",
+    "@microprogram/plugin-mock": "^1.0.0",
+    "@microprogram/shared-utils": "^1.0.0",
+    "chalk": "^4.1.0",
+    "gulp": "^4.0.2",
+    "gulp-less": "^4.0.1",
+    "gulp-px2rpx": "^0.2.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "koa": "^2.13.1",
+    "koa-static": "^5.0.0",
+    "minimist": "^1.2.5",
+    "portfinder": "^1.0.28",
+    "rimraf": "^3.0.2"
+  }
+}
