@@ -77,10 +77,9 @@ function plugin(mode) {
 
     const code = chunk.contents.toString()
     const parsedCode = code.replace(pattern, (_, match) => `${env[match]}`)
-
     chunk.contents = new Buffer.from(parsedCode)
 
-    cb(null, file)
+    cb(null, chunk)
   })
 }
 
