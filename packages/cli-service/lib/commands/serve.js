@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const { info } = require('@microprogram/shared-utils')
+const { info, clearConsole } = require('@microprogram/shared-utils')
 
 const defaults = {
   host: '0.0.0.0',
@@ -48,12 +48,13 @@ module.exports = (api) => {
       server.listen(port)
 
       const task = require('../task')
-      task.execute(['dev'])
-
-      console.log()
-      console.log(`  App running at:`)
-      console.log(`  - Local:   ${chalk.cyan(`127.0.0.1:${port}`)}`)
-      console.log()
+      task.execute(['dev'], () => {
+        clearConsole()
+        console.log()
+        console.log(`  App running at:`)
+        console.log(`  - Local:   ${chalk.cyan(`127.0.0.1:${port}`)}`)
+        console.log()
+      })
     }
   )
 }

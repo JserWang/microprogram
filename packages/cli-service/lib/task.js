@@ -98,11 +98,12 @@ gulp.task('build', gulp.series('clean', 'compile'))
 
 gulp.on('error', error)
 
-exports.execute = function (tasks) {
+exports.execute = function (tasks, cb) {
   gulp.series(tasks)(function (err) {
     if (err) {
       error(err)
       throw err
     }
+    cb()
   })
 }
