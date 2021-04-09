@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-router",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "author": "JserWang",
   "files": [
     "index.js"
@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/parser": "^7.13.15",
     "@babel/traverse": "^7.13.15",
-    "@microprogram/shared-utils": "^1.0.0",
+    "@microprogram/shared-utils": "^1.0.0-beta.1",
     "through2": "^4.0.2"
   }
 }
