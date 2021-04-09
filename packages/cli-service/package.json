@@ -22,6 +22,7 @@
     "@microprogram/plugin-components": "^1.0.0",
     "@microprogram/plugin-dotenv": "^1.0.0",
     "@microprogram/plugin-mock": "^1.0.0",
+    "@microprogram/plugin-router": "^1.0.0",
     "@microprogram/shared-utils": "^1.0.0",
     "chalk": "^4.1.0",
     "gulp": "^4.0.2",

@@ -33,6 +33,7 @@ gulp.task(
     `./${configPath.dist}/${configPath.npm}`
   )
 )
+gulp.task('router', require('./tasks/router').build(config))
 
 gulp.task('ts-watch', require('./tasks/typescript').watch(config))
 gulp.task('less-watch', require('./tasks/less').watch(config))
@@ -53,6 +54,7 @@ gulp.task(
     `./${configPath.dist}/${configPath.npm}`
   )
 )
+gulp.task('router-watch', require('./tasks/router').watch(config))
 
 gulp.task(
   'watch',
@@ -63,7 +65,8 @@ gulp.task(
       `${viewExt}-watch`,
       `json-watch`,
       'image-watch',
-      'npm-watch'
+      'npm-watch',
+      `router-watch`
     ),
     (cb) => {
       done('All watch tasks started !')
@@ -79,7 +82,15 @@ gulp.task(
       info('Starting compile')
       cb()
     },
-    gulp.parallel('npm', 'image', 'less', 'typescript', `${viewExt}`, 'json'),
+    gulp.parallel(
+      'npm',
+      'image',
+      'less',
+      'typescript',
+      `${viewExt}`,
+      'router',
+      'json'
+    ),
     (cb) => {
       done('Compiled successfully!')
       cb()
