@@ -40,11 +40,13 @@ function plugin(options) {
     })
 
     allPath = Array.from(new Set(allPath))
-    const appPath = path.resolve(chunk.base, options.appPath)
+    if (allPath.length > 0) {
+      const appPath = path.resolve(chunk.base, options.appPath)
 
-    var json = readJsonFile(appPath) || {}
-    json.pages = allPath
-    fs.writeFileSync(appPath, JSON.stringify(json, null, 2))
+      var json = readJsonFile(appPath) || {}
+      json.pages = allPath
+      fs.writeFileSync(appPath, JSON.stringify(json, null, 2))
+    }
 
     return cb(null, chunk)
   })
