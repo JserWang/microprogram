@@ -5,6 +5,7 @@ const path = require('path')
 const through = require('through2')
 const parser = require('fast-xml-parser')
 const PluginError = require('plugin-error')
+const { readJsonFile } = require('@microprogram/shared-utils')
 
 function plugin(options) {
   options = options || {
@@ -38,26 +39,24 @@ function plugin(options) {
       parsedPath.dirname,
       `${parsedPath.basename}.json`
     )
-    try {
-      const json = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8').trim())
-      // empty json target key
-      json[`${options.targetKey}`] = {}
+    const json = readJsonFile(jsonFilePath) || {}
+    // empty json target key
+    json[`${options.targetKey}`] = {}
 
-      options.transformers.forEach((transformer) => {
-        const targetTags = tags.filter((tag) =>
-          tag.startsWith(transformer.prefix)
+    options.transformers.forEach((transformer) => {
+      const targetTags = tags.filter((tag) =>
+        tag.startsWith(transformer.prefix)
+      )
+
+      targetTags.forEach((tag) => {
+        const componentName = tag.slice(transformer.prefix.length)
+        json[`${options.targetKey}`][tag] = transformer.getComponentPath(
+          componentName
         )
-
-        targetTags.forEach((tag) => {
-          const componentName = tag.slice(transformer.prefix.length)
-          json[`${options.targetKey}`][tag] = transformer.getComponentPath(
-            componentName
-          )
-        })
       })
+    })
 
-      fs.writeFileSync(jsonFilePath, JSON.stringify(json, null, 2))
-    } catch (e) {}
+    fs.writeFileSync(jsonFilePath, JSON.stringify(json, null, 2))
 
     return cb(null, chunk)
   })
