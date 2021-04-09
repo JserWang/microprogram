@@ -38,25 +38,26 @@ function plugin(options) {
       parsedPath.dirname,
       `${parsedPath.basename}.json`
     )
+    try {
+      const json = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8').trim())
+      // empty json target key
+      json[`${options.targetKey}`] = {}
 
-    const json = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8').trim())
-    // empty json target key
-    json[`${options.targetKey}`] = {}
-
-    options.transformers.forEach((transformer) => {
-      const targetTags = tags.filter((tag) =>
-        tag.startsWith(transformer.prefix)
-      )
-
-      targetTags.forEach((tag) => {
-        const componentName = tag.slice(transformer.prefix.length)
-        json[`${options.targetKey}`][tag] = transformer.getComponentPath(
-          componentName
+      options.transformers.forEach((transformer) => {
+        const targetTags = tags.filter((tag) =>
+          tag.startsWith(transformer.prefix)
         )
-      })
-    })
 
-    fs.writeFileSync(jsonFilePath, JSON.stringify(json, null, 2))
+        targetTags.forEach((tag) => {
+          const componentName = tag.slice(transformer.prefix.length)
+          json[`${options.targetKey}`][tag] = transformer.getComponentPath(
+            componentName
+          )
+        })
+      })
+
+      fs.writeFileSync(jsonFilePath, JSON.stringify(json, null, 2))
+    } catch (e) {}
 
     return cb(null, chunk)
   })
