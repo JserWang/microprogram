@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { copy, emptyDir } = require('@microprogram/shared-utils')
+const { copy, emptyDir, resolveConfig } = require('@microprogram/shared-utils')
 // @ts-check
 const fs = require('fs')
 const path = require('path')
@@ -15,6 +15,8 @@ const differencesJson = 'differences.json'
 const TEMPLATES = [green('wechat-js'), green('wechat-ts')]
 
 const TYPES = [yellow('page'), lightRed('component')]
+
+const { path: configPath } = resolveConfig()
 
 module.exports = init
 
@@ -45,6 +47,7 @@ async function init(template) {
   const templateDir = getTemplateDir(template)
 
   let type = argv.p ? 'page' : 'component'
+  const typePath = argv.p ? configPath.page : configPath.component
   let name = argv.p || argv.page || argv.c || argv.component
   if (!name) {
     const { createType } = await prompt({
@@ -64,7 +67,7 @@ async function init(template) {
     name = directoryName
   }
 
-  const targetPath = path.join(cwd, 'src', `${type}s`, name)
+  const targetPath = path.join(cwd, configPath.src, typePath, name)
   if (!fs.existsSync(targetPath)) {
     fs.mkdirSync(targetPath, { recursive: true })
   } else {
