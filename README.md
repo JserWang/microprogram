@@ -2,5 +2,5 @@
 
 TODO:
 
-- [] `create` support generate project
-- [] `docs` by vitepress
+- [ ] `create` support generate project
+- [ ] `docs` by vitepress
