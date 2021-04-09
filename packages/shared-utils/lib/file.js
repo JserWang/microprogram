@@ -57,7 +57,7 @@ exports.lookupFile = function (dir, formats, pathOnly = false) {
 
 exports.readJsonFile = function (jsonPath) {
   if (fs.existsSync(jsonPath)) {
-    const content = fs.readFileSync(jsonFilePath, 'utf-8').trim()
+    const content = fs.readFileSync(jsonPath, 'utf-8').trim()
     try {
       return JSON.parse(content)
     } catch (e) {}
