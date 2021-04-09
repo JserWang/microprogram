@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/create",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "author": "JserWang",
   "bin": {
     "create": "index.js"
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/create#readme",
   "devDependencies": {
-    "@microprogram/shared-utils": "^1.0.0-beta.3",
+    "@microprogram/shared-utils": "^1.0.0-beta.4",
     "miniprogram-api-typings": "^3.3.0"
   },
   "dependencies": {
