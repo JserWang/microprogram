@@ -1,49 +1,65 @@
 const gulp = require('gulp')
+const path = require('path')
 const components = require('@microprogram/plugin-components')
-const rm = require('rimraf')
-const { error, done, PLATFORM_EXT } = require('@microprogram/shared-utils')
+const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
+const unlink = require('../util/unlink')
 
 const getExt = (platform) => PLATFORM_EXT[platform].viewExt
 
-function compress(config, src) {
+function compress(config, src, target) {
+  const { componentKey: targetKey, transformers } = config.plugins.components
+  target = target || config.path.dist
+
   return gulp
     .src(src)
     .pipe(
       components({
-        targetKey: config.componentKey,
-        transformers: config.transformers
+        targetKey,
+        transformers
       })
     )
     .on('error', (err) => {
       error(`${err}`, `gulp-task-${getExt(config.platform)}`)
     })
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(target))
 }
 
 exports.build = function (config) {
   return function () {
-    return compress(config, `./${config.src}/**/*.${getExt(config.platform)}`)
+    return compress(
+      config,
+      `./${config.path.src}/**/*.${getExt(config.platform)}`
+    )
   }
 }
 
 exports.watch = function (config) {
+  const { path: configPath } = config
   return function (cb) {
     gulp
-      .watch(`./${config.src}/**/*.${getExt(config.platform)}`, {
+      .watch(`./${configPath.src}/**/*.${getExt(config.platform)}`, {
         delay: 1000
       })
       .on('change', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(file.replace(configPath.src, configPath.dist))
+        )
       })
       .on('add', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(file.replace(configPath.src, configPath.dist))
+        )
       })
       .on('unlink', function (file) {
-        const distFile = file.replace(config.src, config.dist)
-        rm(distFile, { maxBusyTries: 5 }, function (err) {
-          if (!err) {
-            done(distFile, `deleted ${getExt(config.platform)}`)
-          }
+        return unlink({
+          file,
+          fromPath: configPath.src,
+          toPath: configPath.dist,
+          tag: getExt(config.platform)
         })
       })
     cb && cb()

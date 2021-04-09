@@ -2,21 +2,15 @@ const path = require('path')
 const rm = require('rimraf')
 const { info, done } = require('@microprogram/shared-utils')
 
+const cwd = process.cwd()
+
 exports.build = function (config) {
+  const { path: configPath } = config
   return function (cb) {
-    const projectJson = path.join(config.dist, 'project.config.json')
-    info(`Clean "${config.dist}"`)
-    rm(
-      path.resolve(process.cwd(), `${config.dist}`),
-      {
-        glob: {
-          ignore: [projectJson]
-        }
-      },
-      () => {
-        done(`Successfully cleaned!`)
-        cb()
-      }
-    )
+    info(`Clean "${configPath.dist}"`)
+    rm(path.resolve(cwd, `${configPath.dist}`), () => {
+      done(`Successfully cleaned!`)
+      cb()
+    })
   }
 }

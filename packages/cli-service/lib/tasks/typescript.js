@@ -1,13 +1,16 @@
 const gulp = require('gulp')
-const rm = require('rimraf')
+const path = require('path')
 const ts = require('gulp-typescript')
 const argv = require('minimist')(process.argv.slice(2))
 
 const dotenv = require('@microprogram/plugin-dotenv')
-const { error, done } = require('@microprogram/shared-utils')
+const { error } = require('@microprogram/shared-utils')
+const unlink = require('../util/unlink')
 const tsProject = ts.createProject('./tsconfig.json')
 
-function compress(config, src) {
+function compress(config, src, target) {
+  target = target || config.path.dist
+
   return gulp
     .src(src)
     .pipe(dotenv(argv.mode))
@@ -15,33 +18,51 @@ function compress(config, src) {
     .on('error', (err) => {
       error(`${err}`, `gulp-task-ts`)
     })
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(target))
 }
 
 exports.build = function (config) {
   return function () {
-    return compress(config, `./${config.src}/**/*.ts`)
+    return compress(config, `./${config.path.src}/**/*.ts`)
   }
 }
 
 exports.watch = function (config) {
+  const { path: configPath } = config
   return function (cb) {
     gulp
-      .watch(`./${config.src}/**/*.ts`, {
+      .watch(`./${configPath.src}/**/*.ts`, {
         delay: 1000
       })
       .on('change', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(
+            file
+              .replace(configPath.src, configPath.dist)
+              .replace(/\.\w*$/, 'js')
+          )
+        )
       })
       .on('add', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(
+            file
+              .replace(configPath.src, configPath.dist)
+              .replace(/\.\w*$/, 'js')
+          )
+        )
       })
       .on('unlink', function (file) {
-        const distFile = file.replace(config.src, config.dist)
-        rm(distFile, { maxBusyTries: 5 }, function (err) {
-          if (!err) {
-            done(distFile, `deleted ts`)
-          }
+        return unlink({
+          file,
+          fromPath: configPath.src,
+          toPath: configPath.dist,
+          tag: 'ts',
+          extname: `.js`
         })
       })
     cb && cb()

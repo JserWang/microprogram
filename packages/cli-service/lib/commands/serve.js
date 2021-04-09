@@ -1,5 +1,9 @@
 const chalk = require('chalk')
-const { info, clearConsole } = require('@microprogram/shared-utils')
+const {
+  info,
+  clearConsole,
+  resolveConfig
+} = require('@microprogram/shared-utils')
 
 const defaults = {
   host: '0.0.0.0',
@@ -21,7 +25,6 @@ module.exports = (api) => {
     },
     async function serve(args) {
       info('Starting development server...')
-
       const portfinder = require('portfinder')
       portfinder.basePort = args.port || defaults.port
       const port = await portfinder.getPortPromise()
@@ -33,14 +36,14 @@ module.exports = (api) => {
       server.use(static(staticPath))
 
       if (args.mock) {
+        const mockConfig = resolveConfig().plugins.mock
         server.use(
           require('@microprogram/plugin-mock')({
-            prefix: '/mock',
-            basePath: '/src/apis',
-            mockDir: '/mock',
-            includes: [/^.*Service/],
-            mockFile: true,
-            watchFile: true
+            prefix: mockConfig.urlPrefix,
+            basePath: mockConfig.basePath,
+            mockDir: mockConfig.mockDir,
+            includes: mockConfig.includes,
+            watchFile: mockConfig.watchFile
           })
         )
       }

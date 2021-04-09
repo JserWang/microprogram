@@ -3,18 +3,13 @@ const {
   info,
   error,
   done,
-  PLATFORM_EXT
+  PLATFORM_EXT,
+  resolveConfig
 } = require('@microprogram/shared-utils')
-const fs = require('fs')
 
-const cwd = process.cwd()
-let config = {}
-if (fs.existsSync(`${cwd}/microprogram.config.js`)) {
-  config = require(`${cwd}/microprogram.config.js`)
-} else {
-  error(`Cannot found "microprogram.config.js" in "${cwd}"`)
-  process.exit(1)
-}
+const config = resolveConfig()
+
+const { path: configPath } = config
 
 const viewExt = PLATFORM_EXT[config.platform].viewExt
 
@@ -22,20 +17,20 @@ gulp.task('clean', require('./tasks/clean').build(config))
 gulp.task('typescript', require('./tasks/typescript').build(config))
 gulp.task(
   'json',
-  require('./tasks/copy').build(config, `./${config.src}/**/*.json`)
+  require('./tasks/copy').build(config, `./${configPath.src}/**/*.json`)
 )
 gulp.task('less', require('./tasks/less').build(config))
 gulp.task('wxml', require('./tasks/wxml').build(config))
 gulp.task(
   'image',
-  require('./tasks/copy').build(config, `./${config.src}/**/*.png`)
+  require('./tasks/copy').build(config, `./${configPath.src}/**/*.png`)
 )
 gulp.task(
   'npm',
   require('./tasks/copy').build(
     config,
-    `./${config.npmPath}/**`,
-    `./${config.dist}/${config.npmPath}`
+    `./${configPath.npm}/**`,
+    `./${configPath.dist}/${configPath.npm}`
   )
 )
 
@@ -44,18 +39,18 @@ gulp.task('less-watch', require('./tasks/less').watch(config))
 gulp.task('wxml-watch', require('./tasks/wxml').watch(config))
 gulp.task(
   'json-watch',
-  require('./tasks/copy').watch(config, `./${config.src}/**/*.json`)
+  require('./tasks/copy').watch(config, `./${configPath.src}/**/*.json`)
 )
 gulp.task(
   'image-watch',
-  require('./tasks/copy').watch(config, `./${config.src}/**/*.png`)
+  require('./tasks/copy').watch(config, `./${configPath.src}/**/*.png`)
 )
 gulp.task(
   'npm-watch',
   require('./tasks/copy').watch(
     config,
-    `./${config.npmPath}/**`,
-    `./${config.dist}/${config.npmPath}`
+    `./${configPath.npm}/**`,
+    `./${configPath.dist}/${configPath.npm}`
   )
 )
 

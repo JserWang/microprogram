@@ -1,9 +1,10 @@
 const gulp = require('gulp')
-const rm = require('rimraf')
-const { error, done } = require('@microprogram/shared-utils')
+const path = require('path')
+const { error } = require('@microprogram/shared-utils')
+const unlink = require('../util/unlink')
 
 function compress(config, src, target) {
-  target = target || config.dist
+  target = target || config.path.dist
 
   return gulp
     .src(src)
@@ -13,30 +14,38 @@ function compress(config, src, target) {
     .pipe(gulp.dest(target))
 }
 
-exports.build = function (config, src, target) {
+exports.build = function (config, src) {
   return function () {
-    return compress(config, src, target)
+    return compress(config, src)
   }
 }
 
-exports.watch = function (config, src, target) {
+exports.watch = function (config, src) {
+  const { path: configPath } = config
   return function (cb) {
     gulp
       .watch(src, {
         delay: 1000
       })
       .on('change', function (file) {
-        return compress(config, file, target)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(file.replace(configPath.src, configPath.dist))
+        )
       })
       .on('add', function (file) {
-        return compress(config, file, target)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(file.replace(configPath.src, configPath.dist))
+        )
       })
       .on('unlink', function (file) {
-        const distFile = file.replace(config.src, config.dist)
-        rm(distFile, { maxBusyTries: 5 }, function (err) {
-          if (!err) {
-            done(distFile, `deleted "${file}"`)
-          }
+        return unlink({
+          file,
+          fromPath: configPath.src,
+          toPath: configPath.dist
         })
       })
     cb && cb()

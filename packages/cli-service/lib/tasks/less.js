@@ -1,13 +1,16 @@
 const gulp = require('gulp')
-const rm = require('rimraf')
+const path = require('path')
 const less = require('gulp-less')
 const px2rpx = require('gulp-px2rpx')
 const rename = require('gulp-rename')
-const { error, done, PLATFORM_EXT } = require('@microprogram/shared-utils')
+const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
+const unlink = require('../util/unlink')
 
 const getExt = (platform) => PLATFORM_EXT[platform].cssExt
 
-function compress(config, src) {
+function compress(config, src, target) {
+  target = target || config.path.dist
+
   return gulp
     .src(src)
     .pipe(less({ allowEmpty: true }))
@@ -16,34 +19,51 @@ function compress(config, src) {
     })
     .pipe(px2rpx())
     .pipe(rename({ extname: `.${getExt(config.platform)}` }))
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(target))
 }
 
 exports.build = function (config) {
   return function () {
-    return compress(config, `./${config.src}/**/*.less`)
+    return compress(config, `./${config.path.src}/**/*.less`)
   }
 }
 
 exports.watch = function (config) {
+  const { path: configPath, platform } = config
+  const extname = getExt(platform)
+
   return function (cb) {
     gulp
-      .watch(`./${config.src}/**/*.less`, { delay: 1000 })
+      .watch(`./${configPath.src}/**/*.less`, { delay: 1000 })
       .on('change', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(
+            file
+              .replace(configPath.src, configPath.dist)
+              .replace(/\.\w*$/, extname)
+          )
+        )
       })
       .on('add', function (file) {
-        return compress(config, file)
+        return compress(
+          config,
+          [`${path.dirname(file)}/*${path.extname(file)}`],
+          path.dirname(
+            file
+              .replace(configPath.src, configPath.dist)
+              .replace(/\.\w*$/, extname)
+          )
+        )
       })
       .on('unlink', function (file) {
-        const distFile = file
-          .replace(config.src, config.dist)
-          .replace(/\.\w*$/, '.wxss')
-
-        rm(distFile, { maxBusyTries: 5 }, function (err) {
-          if (!err) {
-            done(distFile, `deleted ${getExt(config.platform)}`)
-          }
+        return unlink({
+          file,
+          fromPath: configPath.src,
+          toPath: configPath.dist,
+          tag: extname,
+          extname: `.${extname}`
         })
       })
     cb && cb()
