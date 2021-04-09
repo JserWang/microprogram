@@ -54,3 +54,13 @@ exports.lookupFile = function (dir, formats, pathOnly = false) {
     return exports.lookupFile(parentDir, formats, pathOnly)
   }
 }
+
+exports.readJsonFile = function (jsonPath) {
+  if (fs.existsSync(jsonPath)) {
+    const content = fs.readFileSync(jsonFilePath, 'utf-8').trim()
+    try {
+      return JSON.parse(content)
+    } catch (e) {}
+  }
+  return null
+}
