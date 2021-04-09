@@ -5,7 +5,7 @@
   "description": "shared utilities for microprogram packages",
   "files": [
     "index.js",
-    "src/*"
+    "lib/*"
   ],
   "main": "index.js",
   "license": "MIT",
