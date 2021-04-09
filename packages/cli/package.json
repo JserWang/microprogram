@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/cli",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "bin": {
     "mp": "bin/index.js"
   },
@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/cli#readme",
   "dependencies": {
-    "@microprogram/create": "^1.0.0-beta.1",
-    "@microprogram/plugin-devtool": "^1.0.0-beta.1",
-    "@microprogram/shared-utils": "^1.0.0-beta.1",
+    "@microprogram/create": "^1.0.0-beta.2",
+    "@microprogram/plugin-devtool": "^1.0.0-beta.2",
+    "@microprogram/shared-utils": "^1.0.0-beta.2",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "execa": "^5.0.0",

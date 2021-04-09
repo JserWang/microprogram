@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-devtool",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-devtool#readme",
   "dependencies": {
-    "@microprogram/shared-utils": "^1.0.0-beta.1",
+    "@microprogram/shared-utils": "^1.0.0-beta.2",
     "iconv-lite": "^0.6.2"
   },
   "publishConfig": {
