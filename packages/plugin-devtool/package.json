@@ -1,10 +1,24 @@
 {
   "name": "@microprogram/plugin-devtool",
   "version": "1.0.0-beta.1",
-  "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JserWang/microprogram.git",
+    "directory": "packages/plugin-devtool"
+  },
+  "bugs": {
+    "url": "https://github.com/JserWang/microprogram/issues"
+  },
+  "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-devtool#readme",
   "dependencies": {
     "@microprogram/shared-utils": "^1.0.0-beta.1",
     "iconv-lite": "^0.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

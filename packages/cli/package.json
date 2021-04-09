@@ -4,6 +4,7 @@
   "bin": {
     "mp": "bin/index.js"
   },
+  "author": "JserWang",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
@@ -26,5 +27,8 @@
     "execa": "^5.0.0",
     "minimist": "^1.2.5",
     "pkg-dir": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

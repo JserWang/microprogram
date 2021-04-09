@@ -23,5 +23,8 @@
   "dependencies": {
     "@microprogram/shared-utils": "^1.0.0-beta.1",
     "ts-mock-generator": "^1.0.6"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

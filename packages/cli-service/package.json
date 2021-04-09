@@ -5,6 +5,7 @@
   "bin": {
     "microprogram-cli-service": "bin/microprogram-cli-service.js"
   },
+  "author": "JserWang",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
@@ -35,5 +36,8 @@
     "minimist": "^1.2.5",
     "portfinder": "^1.0.28",
     "rimraf": "^3.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -31,5 +31,8 @@
     "enquirer": "^2.3.6",
     "kolorist": "^1.4.0",
     "minimist": "^1.2.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
