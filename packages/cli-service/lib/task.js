@@ -110,6 +110,6 @@ exports.execute = function (tasks, cb) {
       error(err)
       throw err
     }
-    cb()
+    cb && cb()
   })
 }
