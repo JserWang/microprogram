@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-components",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "author": "JserWang",
   "description": "Automatically parse components in `.*xml` and fill in json",
   "files": [
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-components#readme",
   "dependencies": {
-    "@microprogram/shared-utils": "^1.0.0-beta.2",
+    "@microprogram/shared-utils": "^1.0.0-beta.3",
     "fast-xml-parser": "^3.19.0",
     "plugin-error": "^1.0.1",
     "through2": "^4.0.2"

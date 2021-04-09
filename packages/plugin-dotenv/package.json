@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-dotenv",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "author": "JserWang",
   "files": [
     "index.js"
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-dotenv#readme",
   "dependencies": {
-    "@microprogram/shared-utils": "^1.0.0-beta.2",
+    "@microprogram/shared-utils": "^1.0.0-beta.3",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "plugin-error": "^1.0.1",
