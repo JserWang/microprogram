@@ -5,7 +5,6 @@ const unlink = require('../util/unlink')
 
 function compress(config, src, target) {
   target = target || config.path.dist
-
   return gulp
     .src(src)
     .on('error', (err) => {
@@ -14,9 +13,9 @@ function compress(config, src, target) {
     .pipe(gulp.dest(target))
 }
 
-exports.build = function (config, src) {
+exports.build = function (config, src, target) {
   return function () {
-    return compress(config, src)
+    return compress(config, src, target)
   }
 }
 
