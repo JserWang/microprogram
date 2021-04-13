@@ -76,7 +76,9 @@ function plugin(mode) {
     }
 
     const code = chunk.contents.toString()
-    const parsedCode = code.replace(pattern, (_, match) => `${env[match]}`)
+    const parsedCode = code.replace(pattern, (_, match) =>
+      typeof `${env[match]}` === 'string' ? `"${env[match]}"` : env[match]
+    )
     chunk.contents = new Buffer.from(parsedCode)
 
     cb(null, chunk)
