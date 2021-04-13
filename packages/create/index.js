@@ -49,6 +49,7 @@ async function init(template) {
   let type = argv.p ? 'page' : 'component'
   const typePath = argv.p ? configPath.page : configPath.component
   let name = argv.p || argv.page || argv.c || argv.component
+  let targetPath = argv.t || argv.target || null
   if (!name) {
     const { createType } = await prompt({
       type: 'select',
@@ -67,7 +68,12 @@ async function init(template) {
     name = directoryName
   }
 
-  const targetPath = path.join(cwd, configPath.src, typePath, name)
+  if (!targetPath) {
+    targetPath = path.join(cwd, configPath.src, typePath, name)
+  } else {
+    targetPath = path.join(cwd, configPath.src, targetPath, typePath, name)
+  }
+
   if (!fs.existsSync(targetPath)) {
     fs.mkdirSync(targetPath, { recursive: true })
   } else {

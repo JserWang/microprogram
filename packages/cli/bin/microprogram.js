@@ -20,6 +20,7 @@ program
 program
   .command('add [template]')
   .allowUnknownOption()
+  .option('-t, --target <targetPath>', 'Generate file target path')
   .option('-p, --page <pageName>', 'Generate page files to target path')
   .option(
     '-c, --component <componentName>',
