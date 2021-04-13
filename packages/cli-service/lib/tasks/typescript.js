@@ -13,8 +13,8 @@ function compress(config, src, target) {
 
   return gulp
     .src(src)
-    .pipe(dotenv(argv.mode))
     .pipe(tsProject())
+    .pipe(dotenv(argv.mode))
     .on('error', (err) => {
       error(`${err}`, `gulp-task-ts`)
     })
