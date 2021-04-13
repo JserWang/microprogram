@@ -4,6 +4,7 @@ const ts = require('gulp-typescript')
 const argv = require('minimist')(process.argv.slice(2))
 
 const dotenv = require('@microprogram/plugin-dotenv')
+const alias = require('@microprogram/plugin-alias')
 const { error } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
 const tsProject = ts.createProject('./tsconfig.json')
@@ -14,6 +15,7 @@ function compress(config, src, target) {
   return gulp
     .src(src)
     .pipe(tsProject())
+    .pipe(alias(config.alias || {}))
     .pipe(dotenv(argv.mode))
     .on('error', (err) => {
       error(`${err}`, `gulp-task-ts`)
