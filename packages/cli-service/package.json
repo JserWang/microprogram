@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/cli-service#readme",
   "dependencies": {
-    "@microprogram/plugin-alias": "^1.0.0",
+    "@microprogram/plugin-alias": "^1.0.0-beta.1",
     "@microprogram/plugin-components": "^1.0.0-beta.4",
     "@microprogram/plugin-dotenv": "^1.0.0-beta.5",
     "@microprogram/plugin-mock": "^1.0.0-beta.4",
