@@ -9,6 +9,8 @@ const {
 
 const config = resolveConfig()
 
+const cwd = process.cwd()
+
 const { path: configPath } = config
 
 const viewExt = PLATFORM_EXT[config.platform].viewExt
@@ -34,6 +36,16 @@ gulp.task(
   )
 )
 gulp.task('router', require('./tasks/router').build(config))
+
+gulp.task('clearCache', () => {
+  require(`@microprogram/plugin-devtool/${config.platform}`).execute(
+    'cache',
+    '--clean',
+    'all',
+    '--project',
+    cwd
+  )
+})
 
 gulp.task('ts-watch', require('./tasks/typescript').watch(config))
 gulp.task('less-watch', require('./tasks/less').watch(config))
@@ -91,6 +103,7 @@ gulp.task(
       'router',
       'json'
     ),
+    'clearCache',
     (cb) => {
       done('Compiled successfully!')
       cb()
