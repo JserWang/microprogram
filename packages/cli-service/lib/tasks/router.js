@@ -2,7 +2,9 @@ const gulp = require('gulp')
 const router = require('@microprogram/plugin-router')
 
 function compress(config) {
-  return gulp.src(config.router.path).pipe(router())
+  return gulp
+    .src(config.router.path)
+    .pipe(router(`${config.router.path}/app.json`))
 }
 
 exports.build = function (config) {

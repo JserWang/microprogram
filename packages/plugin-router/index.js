@@ -7,7 +7,9 @@ const through = require('through2')
 const traverse = require('@babel/traverse').default
 const parse = require('@babel/parser').parse
 
-function plugin(options) {
+const cwd = process.cwd()
+
+function plugin(jsonPath) {
   return through.obj(function (chunk, _, cb) {
     if (chunk.isNull()) {
       return cb()
@@ -41,11 +43,11 @@ function plugin(options) {
 
     allPath = Array.from(new Set(allPath))
     if (allPath.length > 0) {
-      const appPath = path.resolve(chunk.base, options.appPath)
+      const appJsonPath = path.resolve(cwd, jsonPath)
 
-      var json = readJsonFile(appPath) || {}
+      var json = readJsonFile(appJsonPath) || {}
       json.pages = allPath
-      fs.writeFileSync(appPath, JSON.stringify(json, null, 2))
+      fs.writeFileSync(appJsonPath, JSON.stringify(json, null, 2))
     }
 
     return cb(null, chunk)
