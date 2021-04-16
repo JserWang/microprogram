@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/cli",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "bin": {
     "mp": "bin/microprogram.js"
   },
@@ -21,7 +21,7 @@
   "dependencies": {
     "@microprogram/create": "^1.0.0-beta.5",
     "@microprogram/plugin-devtool": "^1.0.0-beta.5",
-    "@microprogram/plugin-iconfont": "^1.0.0-beta.1",
+    "@microprogram/plugin-iconfont": "^1.0.0-beta.2",
     "@microprogram/shared-utils": "^1.0.0-beta.4",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
