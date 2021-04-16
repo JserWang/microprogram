@@ -1,0 +1,30 @@
+{
+  "name": "@microprogram/plugin-iconfont",
+  "version": "1.0.0-beta.0",
+  "author": "JserWang",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JserWang/microprogram.git",
+    "directory": "packages/plugin-iconfont"
+  },
+  "bugs": {
+    "url": "https://github.com/JserWang/microprogram/issues"
+  },
+  "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-iconfont#readme",
+  "dependencies": {
+    "@microprogram/shared-utils": "^1.0.0-beta.4",
+    "axios": "^0.21.1",
+    "fast-xml-parser": "^3.19.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

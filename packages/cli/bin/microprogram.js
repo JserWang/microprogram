@@ -70,6 +70,13 @@ program
     require('../lib/util/runNpmScript')('build', process.argv.slice(3))
   })
 
+program
+  .command('icon')
+  .description('generate icon from iconfont.cn')
+  .action(() => {
+    require('@microprogram/plugin-iconfont')()
+  })
+
 // output help information on unknown commands
 program.arguments('<command>').action((cmd) => {
   program.outputHelp()
