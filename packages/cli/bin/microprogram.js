@@ -35,11 +35,9 @@ program
 
 program
   .command('open [project]')
-  .option('-p, --platform <platform>', 'The platform of cli, such as wechat')
   .description('Open devtools by platform')
   .action((project) => {
-    const argv = require('minimist')(process.argv.slice(2))
-    require(`@microprogram/plugin-devtool/${argv.p || argv.platform}`).execute(
+    require(`@microprogram/plugin-devtool`).execute(
       'open',
       '--project',
       project || cwd
@@ -48,11 +46,9 @@ program
 
 program
   .command('build-npm [project]')
-  .option('-p, --platform <platform>', 'The platform of cli, such as wechat')
-  .description('Clean cache by platform')
+  .description('Build npm by platform')
   .action((project) => {
-    const argv = require('minimist')(process.argv.slice(2))
-    require(`@microprogram/plugin-devtool/${argv.p || argv.platform}`).execute(
+    require(`@microprogram/plugin-devtool`).execute(
       'build-npm',
       '--project',
       project || cwd

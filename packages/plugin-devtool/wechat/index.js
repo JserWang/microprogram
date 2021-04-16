@@ -43,7 +43,7 @@ function getCliPath() {
   return (cliPath = fs.existsSync(wxPath) ? wxPath : null)
 }
 
-exports.execute = function (...args) {
+exports.execute = function (args) {
   const cliPath = getCliPath()
   if (cliPath) {
     return execFile(cliPath, args, { timeout: 150000 })

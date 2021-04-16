@@ -37,14 +37,15 @@ gulp.task(
 )
 gulp.task('router', require('./tasks/router').build(config))
 
-gulp.task('clearCache', () => {
-  require(`@microprogram/plugin-devtool/${config.platform}`).execute(
+gulp.task('clearCache', (cb) => {
+  require(`@microprogram/plugin-devtool`).execute(
     'cache',
     '--clean',
     'all',
     '--project',
     cwd
   )
+  cb()
 })
 
 gulp.task('ts-watch', require('./tasks/typescript').watch(config))
