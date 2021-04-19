@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/cli-service",
-  "version": "1.0.0-beta.12",
+  "version": "1.0.0-beta.13",
   "main": "lib/Service.js",
   "bin": {
     "microprogram-cli-service": "bin/microprogram-cli-service.js"
@@ -24,7 +24,7 @@
     "@microprogram/plugin-components": "^1.0.0-beta.4",
     "@microprogram/plugin-devtool": "^1.0.0-beta.5",
     "@microprogram/plugin-dotenv": "^1.0.0-beta.5",
-    "@microprogram/plugin-mock": "^1.0.0-beta.7",
+    "@microprogram/plugin-mock": "^1.0.0-beta.8",
     "@microprogram/plugin-router": "^1.0.0-beta.5",
     "@microprogram/shared-utils": "^1.0.0-beta.4",
     "chalk": "^4.1.0",
