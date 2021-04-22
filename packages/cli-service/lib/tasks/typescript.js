@@ -15,11 +15,11 @@ function compress(config, src, target) {
   return gulp
     .src(src)
     .pipe(tsProject())
-    .pipe(alias(config.alias || {}))
-    .pipe(dotenv(argv.mode))
     .on('error', (err) => {
       error(`${err}`, `gulp-task-ts`)
     })
+    .pipe(alias(config.alias || {}))
+    .pipe(dotenv(argv.mode))
     .pipe(gulp.dest(target))
 }
 
