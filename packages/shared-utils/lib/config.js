@@ -1,3 +1,4 @@
+const { error } = require('./logger')
 const fs = require('fs')
 
 exports.resolveConfig = function () {
