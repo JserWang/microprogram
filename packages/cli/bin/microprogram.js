@@ -2,6 +2,7 @@
 const chalk = require('chalk')
 const { program } = require('commander')
 const { checkNodeVersion } = require('@microprogram/shared-utils')
+const leven = require('leven')
 
 const requiredVersion = require('../package.json').engines.node
 checkNodeVersion(requiredVersion, '@microprogram/cli')
