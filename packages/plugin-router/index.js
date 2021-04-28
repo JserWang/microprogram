@@ -33,7 +33,7 @@ function plugin(jsonPath) {
           if (element.type !== 'ObjectExpression') {
             return
           }
-          const prop = element.properties.find((p) => p.key.name === 'path')
+          const prop = element.properties.find((p) => p.key.name === 'page')
           if (prop) {
             allPath.push(prop.value.value)
           }
