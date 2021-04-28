@@ -4,6 +4,7 @@ const path = require('path')
 const iconv = require('iconv-lite')
 const { execSync, execFile } = require('child_process')
 const { error } = require('@microprogram/shared-utils')
+const glob = require('fast-glob')
 
 let cliPath
 
@@ -43,11 +44,32 @@ function getCliPath() {
   return (cliPath = fs.existsSync(wxPath) ? wxPath : null)
 }
 
+function checkCliStatus() {
+  let status
+  switch(os.platform()) {
+    case 'darwin':
+      const result = glob.sync(`${process.env.HOME}/Library/Application Support/微信开发者工具/**/**/.ide-status`)
+      if (result.length > 0) {
+        status = fs.readFileSync(result[0]).toString() === 'On'
+      }
+      break;
+    case 'win32':
+    default:
+      status = undefined
+  }
+  return status
+}
+
 exports.execute = function (args) {
   const cliPath = getCliPath()
   if (cliPath) {
-    return execFile(cliPath, args, { timeout: 150000 })
+    const status = checkCliStatus()
+    if (status === undefined || status) {
+      return execFile(cliPath, args, { timeout: 150000 })
+    } else {
+      error(`Please open devtool serve port. "设置 -> 安全设置中开启服务端口"`)
+    }
   } else {
-    error(`Cannot find wechat devtool`)
+    error(`Please download the devtool from \n https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html`)
   }
 }
