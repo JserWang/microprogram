@@ -4508,6 +4508,11 @@ lerna@^4.0.0:
     native-request "^1.0.5"
     source-map "~0.6.0"
 
+leven@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
+  integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
@@ -7280,10 +7285,10 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
-ts-mock-generator@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/ts-mock-generator/-/ts-mock-generator-1.0.9.tgz#ee508662f5b91394d3188bf26272070960286f59"
-  integrity sha512-pz4v2tdFe2ijTcfQDkcD0cRTPjL+UknahDrFEZe1tswyljAAGBFgFmIJd67SAq0DU02jSN0r186DE1IFWPuNDQ==
+ts-mock-generator@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/ts-mock-generator/-/ts-mock-generator-1.0.11.tgz#cdee7254a27577960230ab01cfbcc341e2c80ab8"
+  integrity sha512-3DQAhMuUZKU1D29IiaNoVpkQuuqiEj+IBC5Euo9heN4xhJso3ykKbXuD61Xr7f/H5afjdfhKLIRSmP2atmtSVQ==
   dependencies:
     chalk "^4.1.0"
     faker "^5.4.0"

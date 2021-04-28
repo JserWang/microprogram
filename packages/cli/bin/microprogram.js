@@ -7,8 +7,6 @@ const leven = require('leven')
 const requiredVersion = require('../package.json').engines.node
 checkNodeVersion(requiredVersion, '@microprogram/cli')
 
-const cwd = process.cwd()
-
 program
   .version(`@microprogram/cli ${require('../package.json').version}`)
   .usage('<command> [options]')
@@ -35,24 +33,11 @@ program
   })
 
 program
-  .command('open [project]')
-  .description('Open devtools by platform')
-  .action((project) => {
+  .command('devtool [command]')
+  .description('Run devtool cli command')
+  .action(() => {
     require(`@microprogram/plugin-devtool`).execute(
-      'open',
-      '--project',
-      project || cwd
-    )
-  })
-
-program
-  .command('build-npm [project]')
-  .description('Build npm by platform')
-  .action((project) => {
-    require(`@microprogram/plugin-devtool`).execute(
-      'build-npm',
-      '--project',
-      project || cwd
+      ...process.argv.slice(3)
     )
   })
 
