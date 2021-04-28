@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-mock",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.15",
   "author": "JserWang",
   "description": "koa mock middleware",
   "files": [
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-mock#readme",
   "dependencies": {
-    "@microprogram/shared-utils": "^1.0.0-beta.4",
+    "@microprogram/shared-utils": "^1.0.0-beta.15",
     "ts-mock-generator": "^1.0.11"
   },
   "publishConfig": {
