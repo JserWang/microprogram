@@ -34,6 +34,7 @@ program
 
 program
   .command('devtool [command]')
+  .allowUnknownOption()
   .description('Run devtool cli command')
   .action(() => {
     require(`@microprogram/plugin-devtool`).execute(
