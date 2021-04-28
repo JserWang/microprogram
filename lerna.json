@@ -2,7 +2,7 @@
   "packages": ["packages/*"],
   "useWorkspaces": true,
   "npmClient": "yarn",
-  "version": "independent",
+  "version": "0.0.0",
   "command": {
     "publish": {
       "message": "chore(release): publish"
