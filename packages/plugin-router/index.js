@@ -9,7 +9,7 @@ const parse = require('@babel/parser').parse
 
 const cwd = process.cwd()
 
-function plugin(jsonPath) {
+function plugin(jsonPath, platform) {
   return through.obj(function (chunk, _, cb) {
     if (chunk.isNull()) {
       return cb()
@@ -21,32 +21,55 @@ function plugin(jsonPath) {
       plugins: ['typescript']
     })
 
-    let allPath = []
+    let pages = []
+    const subPackages = {}
     traverse(ast, {
       ArrayExpression: function (traversePath) {
-        for (
-          let index = 0;
-          index < traversePath.node.elements.length;
-          index++
-        ) {
-          const element = traversePath.node.elements[index]
+        const elements = traversePath.node.elements
+        for ( let index = 0; index < elements.length; index += 1) {
+          const element = elements[index]
           if (element.type !== 'ObjectExpression') {
             return
           }
+
+          const grand = traversePath.parentPath.parentPath.node
           const prop = element.properties.find((p) => p.key.name === 'page')
-          if (prop) {
-            allPath.push(prop.value.value)
+
+          if (grand.type === "ObjectExpression") {
+            const subPackage = grand.properties.find((p) => p.key.name === 'root')
+            if (subPackage) {
+              const subPackageName = subPackage.value.value
+              if (!subPackages[subPackageName]) {
+                subPackages[subPackageName] = []
+              }
+              subPackages[subPackageName].push(prop.value.value)
+            }
+          } else {
+            if (prop && prop.value.value) {
+              pages.push(prop.value.value)
+            }
           }
         }
       }
     })
 
-    allPath = Array.from(new Set(allPath))
-    if (allPath.length > 0) {
+    pages = Array.from(new Set(pages))
+    if (pages.length > 0 || Object.keys(subPackages).length > 0) {
       const appJsonPath = path.resolve(cwd, jsonPath)
 
       var json = readJsonFile(appJsonPath) || {}
-      json.pages = allPath
+      json.pages = pages
+      // 当存在分包时处理分包
+      if (Object.keys(subPackages).length > 0) {
+        let subKey = 'subpackages'
+        if (platform === 'alipay') {
+          subKey = 'subPackages'
+        }
+        json[subKey] = Object.keys(subPackages).map((key) => ({
+          root: key,
+          pages: subPackages[key]
+        }))
+      }
       fs.writeFileSync(appJsonPath, JSON.stringify(json, null, 2))
     }
 
