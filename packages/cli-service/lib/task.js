@@ -13,8 +13,6 @@ const cwd = process.cwd()
 
 const { path: configPath } = config
 
-const viewExt = PLATFORM_EXT[config.platform].viewExt
-
 gulp.task('clean', require('./tasks/clean').build(config))
 gulp.task('typescript', require('./tasks/typescript').build(config))
 gulp.task(
@@ -22,7 +20,7 @@ gulp.task(
   require('./tasks/copy').build(config, `./${configPath.src}/**/*.json`)
 )
 gulp.task('less', require('./tasks/less').build(config))
-gulp.task('wxml', require('./tasks/wxml').build(config))
+gulp.task('views', require('./tasks/views').build(config))
 gulp.task(
   'image',
   require('./tasks/copy').build(config, `./${configPath.src}/**/*.png`)
@@ -50,7 +48,7 @@ gulp.task('clearCache', (cb) => {
 
 gulp.task('ts-watch', require('./tasks/typescript').watch(config))
 gulp.task('less-watch', require('./tasks/less').watch(config))
-gulp.task('wxml-watch', require('./tasks/wxml').watch(config))
+gulp.task('views-watch', require('./tasks/views').watch(config))
 gulp.task(
   'json-watch',
   require('./tasks/copy').watch(config, `./${configPath.src}/**/*.json`)
@@ -75,7 +73,7 @@ gulp.task(
     gulp.parallel(
       'ts-watch',
       'less-watch',
-      `${viewExt}-watch`,
+      `views-watch`,
       `json-watch`,
       'image-watch',
       'npm-watch',
@@ -100,7 +98,7 @@ gulp.task(
       'image',
       'less',
       'typescript',
-      `${viewExt}`,
+      `views`,
       'router',
       'json'
     ),
