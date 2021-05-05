@@ -3,7 +3,7 @@ const router = require('@microprogram/plugin-router')
 
 function compress(config) {
   return gulp
-    .src(config.router.path)
+    .src(config.plugins.router.path)
     .pipe(router(`${config.path.src}/app.json`, config.platform))
 }
 

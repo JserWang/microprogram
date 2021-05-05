@@ -18,7 +18,7 @@ function compress(config, src, target) {
     .on('error', (err) => {
       error(`${err}`, `gulp-task-ts`)
     })
-    .pipe(alias(config.alias || {}))
+    .pipe(alias(config.plugins.alias || {}))
     .pipe(dotenv(argv.mode))
     .pipe(gulp.dest(target))
 }
