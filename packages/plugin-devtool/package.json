@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-devtool",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.17",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
