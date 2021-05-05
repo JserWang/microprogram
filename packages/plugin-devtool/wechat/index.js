@@ -60,11 +60,22 @@ function checkCliStatus() {
   return status
 }
 
+function injectProject(args) {
+  if (args.indexOf(args) > -1) {
+    return args
+  } else {
+    args.push('--project')
+    args.push(`${process.cwd()}`)
+  }
+  return args
+}
+
 exports.execute = function (args) {
   const cliPath = getCliPath()
   if (cliPath) {
     const status = checkCliStatus()
     if (status === undefined || status) {
+      args = injectProject(args)
       return execFile(cliPath, args, { timeout: 150000 })
     } else {
       error(`Please open devtool serve port. "设置 -> 安全设置中开启服务端口"`)
