@@ -39,9 +39,8 @@ gulp.task('clearCache', (cb) => {
   require(`@microprogram/plugin-devtool`).execute(
     'cache',
     '--clean',
-    'all',
-    '--project',
-    cwd
+    'compile',
+    'file'
   )
   cb()
 })
@@ -51,19 +50,30 @@ gulp.task('less-watch', require('./tasks/less').watch(config))
 gulp.task('views-watch', require('./tasks/views').watch(config))
 gulp.task(
   'json-watch',
-  require('./tasks/copy').watch(config, `./${configPath.src}/**/*.json`)
+  require('./tasks/copy').watch({
+    config, 
+    src: `./${configPath.src}/**/*.json`,
+    find: configPath.src,
+    replacement: configPath.dist
+  })
 )
 gulp.task(
   'image-watch',
-  require('./tasks/copy').watch(config, `./${configPath.src}/**/*.png`)
+  require('./tasks/copy').watch({
+    config, 
+    src: `./${configPath.src}/**/*.json`,
+    find: configPath.src,
+    replacement: configPath.dist
+  })
 )
 gulp.task(
   'npm-watch',
-  require('./tasks/copy').watch(
+  require('./tasks/copy').watch({
     config,
-    `./${configPath.npm}/**`,
-    `./${configPath.dist}/${configPath.npm}`
-  )
+    src: `./${configPath.npm}/**`,
+    find: configPath.npm,
+    replacement: `${configPath.dist}/${configPath.npm}`
+  })
 )
 gulp.task('router-watch', require('./tasks/router').watch(config))
 

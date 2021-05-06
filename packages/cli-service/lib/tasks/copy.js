@@ -19,34 +19,34 @@ exports.build = function (config, src, target) {
   }
 }
 
-exports.watch = function (config, src) {
+exports.watch = function ({config, src, find, replacement}) {
   const { path: configPath } = config
   return function (cb) {
     gulp
-      .watch(src, {
-        delay: 1000
+    .watch(src, {
+      delay: 1000
+    })
+    .on('change', function (file) {
+      return compress(
+        config,
+        `${path.dirname(file)}/*${path.extname(file)}`,
+        path.dirname(file.replace(find, replacement)) 
+      )
+    })
+    .on('add', function (file) {
+      return compress(
+        config,
+        `${path.dirname(file)}/*${path.extname(file)}`,
+        path.dirname(file.replace(find, replacement)) 
+      )
+    })
+    .on('unlink', function (file) {
+      return unlink({
+        file,
+        fromPath: configPath.src,
+        toPath: configPath.dist
       })
-      .on('change', function (file) {
-        return compress(
-          config,
-          [`${path.dirname(file)}/*${path.extname(file)}`],
-          path.dirname(file.replace(configPath.src, configPath.dist))
-        )
-      })
-      .on('add', function (file) {
-        return compress(
-          config,
-          [`${path.dirname(file)}/*${path.extname(file)}`],
-          path.dirname(file.replace(configPath.src, configPath.dist))
-        )
-      })
-      .on('unlink', function (file) {
-        return unlink({
-          file,
-          fromPath: configPath.src,
-          toPath: configPath.dist
-        })
-      })
+    })
     cb && cb()
   }
 }
