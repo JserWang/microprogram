@@ -3,13 +3,15 @@ const path = require('path')
 const components = require('@microprogram/plugin-components')
 const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
+const empty = require('../util/empty')
+const htmlmin = require('gulp-htmlmin');
+const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].viewExt
 
 function compress(config, src, target) {
   const { componentKey: targetKey, transformers } = config.plugins.components
   target = target || config.path.dist
-
   return gulp
     .src(src)
     .pipe(
@@ -17,6 +19,15 @@ function compress(config, src, target) {
         targetKey,
         transformers
       })
+    )
+    .pipe(
+      argv.mode === 'production' ? 
+        htmlmin({ 
+          collapseWhitespace: true, 
+          keepClosingSlash: true,
+          removeComments: true,
+          caseSensitive: true
+        }) : empty()
     )
     .on('error', (err) => {
       error(`${err}`, `gulp-task-${getExt(config.platform)}`)

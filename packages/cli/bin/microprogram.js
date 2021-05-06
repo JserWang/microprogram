@@ -53,6 +53,7 @@ program
 program
   .command('build')
   .description('alias of "npm run build" in the current project')
+  .option('-m, --mode', 'Set build mode. When the mode is in production, it will be compressed')
   .action(() => {
     require('../lib/util/runNpmScript')('build', process.argv.slice(3))
   })
