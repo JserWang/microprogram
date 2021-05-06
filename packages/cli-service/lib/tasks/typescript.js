@@ -2,11 +2,13 @@ const gulp = require('gulp')
 const path = require('path')
 const ts = require('gulp-typescript')
 const argv = require('minimist')(process.argv.slice(2))
+const uglify = require('gulp-uglify')
 
 const dotenv = require('@microprogram/plugin-dotenv')
 const alias = require('@microprogram/plugin-alias')
 const { error } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
+const empty = require('../util/empty')
 const tsProject = ts.createProject('./tsconfig.json')
 
 function compress(config, src, target) {
@@ -20,6 +22,9 @@ function compress(config, src, target) {
     })
     .pipe(alias(config.plugins.alias || {}))
     .pipe(dotenv(argv.mode || 'development'))
+    .pipe(
+      argv.mode === 'production' ? uglify() : empty()
+    )
     .pipe(gulp.dest(target))
 }
 

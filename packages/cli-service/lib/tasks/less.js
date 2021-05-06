@@ -5,7 +5,8 @@ const px2rpx = require('gulp-px2rpx')
 const rename = require('gulp-rename')
 const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
-const cleanCSS = require('gulp-clean-css');
+const empty = require('../util/empty')
+const cleanCSS = require('gulp-clean-css')
 const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].cssExt

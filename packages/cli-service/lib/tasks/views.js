@@ -4,7 +4,7 @@ const components = require('@microprogram/plugin-components')
 const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
 const empty = require('../util/empty')
-const htmlmin = require('gulp-htmlmin');
+const htmlmin = require('gulp-htmlmin')
 const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].viewExt
