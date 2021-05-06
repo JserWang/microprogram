@@ -5,6 +5,8 @@ const px2rpx = require('gulp-px2rpx')
 const rename = require('gulp-rename')
 const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
+const cleanCSS = require('gulp-clean-css');
+const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].cssExt
 
@@ -19,6 +21,9 @@ function compress(config, src, target) {
     })
     .pipe(px2rpx())
     .pipe(rename({ extname: `.${getExt(config.platform)}` }))
+    .pipe(
+      argv.mode === 'production' ? cleanCSS() : empty()
+    )
     .pipe(gulp.dest(target))
 }
 
