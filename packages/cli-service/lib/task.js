@@ -119,9 +119,15 @@ gulp.task(
   )
 )
 
+gulp.task('minify-npm', 
+  gulp.series(
+    require('./tasks/npm').minifyJS(config), 
+  )
+)
+
 gulp.task('dev', gulp.series('clean', 'compile', 'watch', 'clearCache'))
 
-gulp.task('build', gulp.series('clean', 'compile'))
+gulp.task('build', gulp.series('clean', 'compile', 'minify-npm'))
 
 gulp.on('error', error)
 
