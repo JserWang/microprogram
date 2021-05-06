@@ -16,7 +16,7 @@ exports.build = function (config) {
 exports.watch = function (config) {
   return function (cb) {
     gulp
-      .watch(config.router.path, {
+      .watch(config.plugins.router.path, {
         delay: 1000
       })
       .on('change', function () {
