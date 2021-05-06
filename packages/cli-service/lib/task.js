@@ -112,7 +112,6 @@ gulp.task(
       'router',
       'json'
     ),
-    'clearCache',
     (cb) => {
       done('Compiled successfully!')
       cb()
@@ -120,7 +119,7 @@ gulp.task(
   )
 )
 
-gulp.task('dev', gulp.series('clean', 'compile', 'watch'))
+gulp.task('dev', gulp.series('clean', 'compile', 'watch', 'clearCache'))
 
 gulp.task('build', gulp.series('clean', 'compile'))
 
