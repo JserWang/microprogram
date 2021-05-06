@@ -47,9 +47,7 @@ module.exports = function (options) {
         ctx.type = 'application/json'
         ctx.response.status = data.httpCode ? data.httpCode : 200
         ctx.body = data.response
-        info(
-          `in proxy url: ${url}, responseData: ${JSON.stringify(data.response)}`
-        )
+        info(JSON.stringify(data.response), `MOCK: ${url}`)
       }
     }
     next()

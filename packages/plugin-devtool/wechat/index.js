@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const iconv = require('iconv-lite')
 const { execSync, execFile } = require('child_process')
-const { error } = require('@microprogram/shared-utils')
+const { error, info, done } = require('@microprogram/shared-utils')
 const glob = require('fast-glob')
 
 let cliPath
@@ -76,7 +76,14 @@ exports.execute = function (args) {
     const status = checkCliStatus()
     if (status === undefined || status) {
       args = injectProject(args)
-      return execFile(cliPath, args, { timeout: 150000 })
+      info(`${cliPath} ${args.join(' ')}`, 'DEVTOOL')
+      return execFile(cliPath, args, { timeout: 150000 }, (error) => {
+        if (error) {
+          error(error, 'DEVTOOL')
+        } else {
+          done(`${args.join(' ')}`, 'DEVTOOL')
+        }
+      })
     } else {
       error(`Please open devtool serve port. "设置 -> 安全设置中开启服务端口"`)
     }
