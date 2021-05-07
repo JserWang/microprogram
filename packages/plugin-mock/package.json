@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/plugin-mock",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.19",
   "author": "JserWang",
   "description": "koa mock middleware",
   "files": [
