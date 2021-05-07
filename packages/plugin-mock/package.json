@@ -22,6 +22,7 @@
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-mock#readme",
   "dependencies": {
     "@microprogram/shared-utils": "^1.0.0-beta.15",
+    "node-watch": "^0.7.1",
     "ts-mock-generator": "^1.0.11"
   },
   "publishConfig": {
