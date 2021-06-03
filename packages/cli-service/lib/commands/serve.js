@@ -4,6 +4,7 @@ const {
   clearConsole,
   resolveConfig
 } = require('@microprogram/shared-utils')
+const argv = require('minimist')(process.argv.slice(2))
 
 const defaults = {
   host: '0.0.0.0',
@@ -49,6 +50,8 @@ module.exports = (api) => {
       }
 
       server.listen(port)
+
+      process.env.NODE_ENV = argv.mode
 
       const task = require('../task')
       task.execute(['dev'], () => {

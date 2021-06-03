@@ -3,13 +3,10 @@ const {
   info,
   error,
   done,
-  PLATFORM_EXT,
   resolveConfig
 } = require('@microprogram/shared-utils')
 
 const config = resolveConfig()
-
-const cwd = process.cwd()
 
 const { path: configPath } = config
 

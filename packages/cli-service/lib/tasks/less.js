@@ -3,6 +3,7 @@ const path = require('path')
 const less = require('gulp-less')
 const px2rpx = require('gulp-px2rpx')
 const rename = require('gulp-rename')
+const inject = require('gulp-inject-string')
 const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
 const empty = require('../util/empty')
@@ -13,9 +14,9 @@ const getExt = (platform) => PLATFORM_EXT[platform].cssExt
 
 function compress(config, src, target) {
   target = target || config.path.dist
-
   return gulp
     .src(src)
+    .pipe(config.less.additionalData && inject.prepend(config.less.additionalData()))
     .pipe(less({ allowEmpty: true }))
     .on('error', (err) => {
       error(`${err}`, 'gulp-task-less')
