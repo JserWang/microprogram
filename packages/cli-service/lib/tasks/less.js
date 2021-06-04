@@ -12,11 +12,21 @@ const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].cssExt
 
+function getAdditionalData(config) {
+  if (config.less && config.less.additionalData) {
+    const data = typeof config.less.additionalData === 'function' ? config.less.additionalData() : config.less.additionalData
+    if (data) {
+      return data
+    }
+  }
+  return ''
+}
+
 function compress(config, src, target) {
   target = target || config.path.dist
   return gulp
     .src(src)
-    .pipe((config.less && config.less.additionalData) && inject.prepend(config.less.additionalData()))
+    .pipe(inject.prepend(getAdditionalData(config)))
     .pipe(less({ allowEmpty: true }))
     .on('error', (err) => {
       error(`${err}`, 'gulp-task-less')
