@@ -16,7 +16,7 @@ function compress(config, src, target) {
   target = target || config.path.dist
   return gulp
     .src(src)
-    .pipe(config.less.additionalData && inject.prepend(config.less.additionalData()))
+    .pipe((config.less && config.less.additionalData) && inject.prepend(config.less.additionalData()))
     .pipe(less({ allowEmpty: true }))
     .on('error', (err) => {
       error(`${err}`, 'gulp-task-less')
