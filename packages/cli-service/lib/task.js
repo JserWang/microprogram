@@ -58,7 +58,7 @@ gulp.task(
   'image-watch',
   require('./tasks/copy').watch({
     config, 
-    src: `./${configPath.src}/**/*.json`,
+    src: `./${configPath.src}/**/*.png`,
     find: configPath.src,
     replacement: configPath.dist
   })
