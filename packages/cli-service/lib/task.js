@@ -30,6 +30,10 @@ gulp.task(
     `./${configPath.dist}/${configPath.npm}`
   )
 )
+gulp.task(
+  'wxs',
+  require('./tasks/copy').build(config, `./${configPath.src}/**/*.wxs`)
+)
 gulp.task('router', require('./tasks/router').build(config))
 
 gulp.task('clearCache', (cb) => {
@@ -72,6 +76,15 @@ gulp.task(
     replacement: `${configPath.dist}/${configPath.npm}`
   })
 )
+gulp.task(
+  'wxs-watch',
+  require('./tasks/copy').watch({
+    config, 
+    src: `./${configPath.src}/**/*.wxs`,
+    find: configPath.src,
+    replacement: configPath.dist
+  })
+)
 gulp.task('router-watch', require('./tasks/router').watch(config))
 
 gulp.task(
@@ -83,6 +96,7 @@ gulp.task(
       `views-watch`,
       `json-watch`,
       'image-watch',
+      'wxs-watch',
       'npm-watch',
       `router-watch`
     ),
@@ -105,6 +119,7 @@ gulp.task(
       'image',
       'less',
       'typescript',
+      'wxs',
       `views`,
       'router',
       'json'
