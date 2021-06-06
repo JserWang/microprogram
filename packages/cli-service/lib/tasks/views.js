@@ -5,15 +5,39 @@ const { error, PLATFORM_EXT } = require('@microprogram/shared-utils')
 const unlink = require('../util/unlink')
 const empty = require('../util/empty')
 const htmlmin = require('gulp-htmlmin')
+const inject = require('gulp-inject-string')
+const through = require("through2");
 const argv = require('minimist')(process.argv.slice(2))
 
 const getExt = (platform) => PLATFORM_EXT[platform].viewExt
+
+function getAdditionalData(config) {
+  const viewExt = getExt(config.platform)
+  if (config[viewExt] && config[viewExt].additionalData) {
+    const data = typeof config[viewExt].additionalData === 'function' ? config[viewExt].additionalData() : config[viewExt].additionalData
+    if (data) {
+      return data
+    }
+  }
+  return ''
+}
+
+function injectPageFile(config) {
+  return through.obj(function (file, enc, cb) {
+    if (file.relative.startsWith(config.path.page)) {
+      const code = file.contents.toString()
+      file.contents = new Buffer.from(`${code}\n${getAdditionalData(config)}`)
+    }
+    cb(null, file);
+  });
+}
 
 function compress(config, src, target) {
   const { componentKey: targetKey, transformers } = config.plugins.components
   target = target || config.path.dist
   return gulp
     .src(src)
+    .pipe(injectPageFile(config))
     .pipe(
       components({
         targetKey,
