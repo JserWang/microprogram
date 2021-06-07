@@ -77,17 +77,26 @@ function getTagNames(elements) {
   let result = []
   Object.keys(elements).filter(tagName => !tagName.startsWith(attrsKey)).forEach((tagName) => {
     const element = elements[tagName]
-
+    
     if (Array.isArray(element)) {
       element.forEach(function (child) {
-        result = result.concat(getTagNames(child))
+        // parser will merge the same node, such as:
+        // <view generic:selectable="custom-1"></view>
+        // <view generic:selectable="custom-2"></view>
+        // will output :
+        // { 'view': [ { '@attrs': { "generic:selectable": "custom-1" } }, { '@attrs': { "generic:selectable": "custom-2" } } ] }
+        if (Object.keys(child).length === 1 && child[attrsKey]) {
+          result = result.concat(Object.keys(child[attrsKey]).filter(key => key.startsWith(genericPrefix)).map(key => child[attrsKey][key]))
+        } else {
+          result = result.concat(getTagNames(child))
+        }
       })
     } else if (typeof element === 'object') {
       result = result.concat(getTagNames(element))
     }
 
     if (element[attrsKey]) {
-    // generic
+      // generic
       result = result.concat(Object.keys(element[attrsKey]).filter(key => key.startsWith(genericPrefix)).map(key => element[attrsKey][key]))
     }
 
