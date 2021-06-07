@@ -7,6 +7,9 @@ const parser = require('fast-xml-parser')
 const PluginError = require('plugin-error')
 const { readJsonFile } = require('@microprogram/shared-utils')
 
+const attrsKey = '@attrs'
+const genericPrefix = 'generic:'
+
 function plugin(options) {
   options = options || {
     targetKey: 'usingComponents',
@@ -31,7 +34,8 @@ function plugin(options) {
     }
 
     const parsedPath = parsePath(chunk.relative)
-    const parsedFile = parser.parse(chunk.contents.toString())
+    const parsedFile = parser.parse(chunk.contents.toString(), {attrNodeName: attrsKey, attributeNamePrefix: '', ignoreAttributes: false})
+
     const tags = getTagNames(parsedFile)
 
     const jsonFilePath = path.join(
@@ -69,19 +73,27 @@ function parsePath(filePath) {
   }
 }
 
-function getTagNames(element) {
+function getTagNames(elements) {
   let result = []
-  Object.keys(element).forEach((tagName) => {
-    const children = element[tagName]
-    if (Array.isArray(children)) {
-      children.forEach(function (child) {
+  Object.keys(elements).filter(tagName => !tagName.startsWith(attrsKey)).forEach((tagName) => {
+    const element = elements[tagName]
+
+    if (Array.isArray(element)) {
+      element.forEach(function (child) {
         result = result.concat(getTagNames(child))
       })
-    } else if (typeof children === 'object') {
-      result = result.concat(getTagNames(children))
+    } else if (typeof element === 'object') {
+      result = result.concat(getTagNames(element))
     }
+
+    if (element[attrsKey]) {
+    // generic
+      result = result.concat(Object.keys(element[attrsKey]).filter(key => key.startsWith(genericPrefix)).map(key => element[attrsKey][key]))
+    }
+
     result.push(tagName)
   })
+
   return Array.from(new Set(result))
 }
 
