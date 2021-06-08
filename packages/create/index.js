@@ -71,7 +71,7 @@ async function init(template) {
   if (!targetPath) {
     targetPath = path.join(cwd, configPath.src, typePath, name)
   } else {
-    targetPath = path.join(cwd, configPath.src, targetPath, typePath, name)
+    targetPath = path.join(cwd, targetPath, name)
   }
 
   if (!fs.existsSync(targetPath)) {
