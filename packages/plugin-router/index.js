@@ -9,7 +9,39 @@ const parse = require('@babel/parser').parse
 
 const cwd = process.cwd()
 
-function plugin(jsonPath, platform) {
+function rewritePrivateConfig(pages) {
+  const privateJsonPath = path.resolve(cwd, 'project.private.config.json')
+  if (fs.existsSync(privateJsonPath)) {
+    const privateJson = readJsonFile(privateJsonPath)
+
+    // filter non-existent paths
+    const pureList = privateJson.condition.miniprogram.list.filter((item) => pages.indexOf(item.pathName) !== -1)
+
+    function hasSamePath(page) {
+      return pureList.find(item => item.pathName === page)
+    }
+
+    pages.forEach((page) => {
+      if (!hasSamePath(page)) {
+        pureList.push({
+          "name": page.replace('pages/', '').replace('/index', ''),
+          "pathName": page,
+          "query": "",
+          "scene": null
+        })
+      }
+    })
+
+    privateJson.condition.miniprogram.list = pureList
+
+    fs.writeFileSync(privateJsonPath, JSON.stringify(privateJson, null, 2))
+  }
+}
+
+function plugin(jsonPath, config) {
+  const { platform, plugins } = config
+  const { autoGenPrivateConfig } = plugins.router
+
   return through.obj(function (chunk, _, cb) {
     if (chunk.isNull()) {
       return cb()
@@ -57,6 +89,7 @@ function plugin(jsonPath, platform) {
     if (pages.length > 0 || Object.keys(subPackages).length > 0) {
       const appJsonPath = path.resolve(cwd, jsonPath)
 
+      // rewrite app.json
       var json = readJsonFile(appJsonPath) || {}
       json.pages = pages
       // 当存在分包时处理分包
@@ -71,6 +104,9 @@ function plugin(jsonPath, platform) {
         }))
       }
       fs.writeFileSync(appJsonPath, JSON.stringify(json, null, 2))
+
+      // rewrite project.private.config.json
+      autoGenPrivateConfig && rewritePrivateConfig(pages)
     }
 
     return cb(null, chunk)
