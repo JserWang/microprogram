@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const chalk = require('chalk')
 const { program } = require('commander')
-const { checkNodeVersion } = require('@microprogram/shared-utils')
+const { checkNodeVersion, runNpmScript } = require('@microprogram/shared-utils')
 const leven = require('leven')
 
 const requiredVersion = require('../package.json').engines.node
@@ -43,11 +43,11 @@ program
   })
 
 program
-  .command('serve')
-  .description('alias of "npm run serve" in the current project')
+  .command('dev')
+  .description('alias of "npm run dev" in the current project')
   .allowUnknownOption()
   .action(() => {
-    require('../lib/util/runNpmScript')('serve', process.argv.slice(3))
+    runNpmScript('dev', process.argv.slice(3))
   })
 
 program
@@ -55,7 +55,7 @@ program
   .description('alias of "npm run build" in the current project')
   .option('-m, --mode', 'Set build mode. When the mode is in production, it will be compressed')
   .action(() => {
-    require('../lib/util/runNpmScript')('build', process.argv.slice(3))
+    runNpmScript('build', process.argv.slice(3))
   })
 
 program
