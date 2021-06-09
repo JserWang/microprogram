@@ -18,8 +18,7 @@
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/plugin-iconfont#readme",
   "dependencies": {
     "@microprogram/shared-utils": "^1.0.0-beta.15",
-    "axios": "^0.21.1",
-    "fast-xml-parser": "^3.19.0"
+    "axios": "^0.21.1"
   },
   "publishConfig": {
     "access": "public"
