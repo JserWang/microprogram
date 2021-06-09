@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/shared-utils",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.30",
   "author": "JserWang",
   "description": "shared utilities for microprogram packages",
   "files": [
@@ -24,11 +24,11 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "events": "^3.3.0",
+    "execa": "^5.0.0",
     "fast-glob": "^3.2.5",
-    "semver": "^7.3.5",
-    "strip-ansi": "^6.0.0",
     "pkg-dir": "^5.0.0",
-    "execa": "^5.0.0"
+    "semver": "^7.3.5",
+    "strip-ansi": "^6.0.0"
   },
   "publishConfig": {
     "access": "public"

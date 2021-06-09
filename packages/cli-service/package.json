@@ -1,6 +1,6 @@
 {
   "name": "@microprogram/cli-service",
-  "version": "1.0.0-beta.29",
+  "version": "1.0.0-beta.30",
   "main": "lib/Service.js",
   "bin": {
     "microprogram-cli-service": "bin/microprogram-cli-service.js"
@@ -21,12 +21,12 @@
   "homepage": "https://github.com/JserWang/microprogram/tree/main/packages/cli-service#readme",
   "dependencies": {
     "@microprogram/plugin-alias": "^1.0.0-beta.1",
-    "@microprogram/plugin-components": "^1.0.0-beta.27",
-    "@microprogram/plugin-devtool": "^1.0.0-beta.19",
-    "@microprogram/plugin-dotenv": "^1.0.0-beta.15",
-    "@microprogram/plugin-mock": "^1.0.0-beta.19",
-    "@microprogram/plugin-router": "^1.0.0-beta.29",
-    "@microprogram/shared-utils": "^1.0.0-beta.15",
+    "@microprogram/plugin-components": "^1.0.0-beta.30",
+    "@microprogram/plugin-devtool": "^1.0.0-beta.30",
+    "@microprogram/plugin-dotenv": "^1.0.0-beta.30",
+    "@microprogram/plugin-mock": "^1.0.0-beta.30",
+    "@microprogram/plugin-router": "^1.0.0-beta.30",
+    "@microprogram/shared-utils": "^1.0.0-beta.30",
     "chalk": "^4.1.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
